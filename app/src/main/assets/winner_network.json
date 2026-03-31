@@ -1,0 +1,96 @@
+{
+  "metadata": {
+    "format_version": 1,
+    "exported_from": "neat-python",
+    "difficulty": "normal",
+    "screen_width_px": 1080.0,
+    "screen_height_px": 1920.0,
+    "flap_threshold": 0.5
+  },
+  "input_order": [
+    "bird_y_norm",
+    "bird_velocity_norm",
+    "next_pipe_dx_norm",
+    "gap_top_delta_norm",
+    "gap_bottom_delta_norm"
+  ],
+  "output_order": [
+    "flap_score"
+  ],
+  "input_node_indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "output_node_indices": [
+    5
+  ],
+  "evaluation_order": [
+    5
+  ],
+  "nodes_compact": [
+    {
+      "idx": 0,
+      "id": -1,
+      "kind": "input",
+      "bias": 0.0,
+      "response": 1.0,
+      "activation": "identity",
+      "aggregation": "sum"
+    },
+    {
+      "idx": 1,
+      "id": -2,
+      "kind": "input",
+      "bias": 0.0,
+      "response": 1.0,
+      "activation": "identity",
+      "aggregation": "sum"
+    },
+    {
+      "idx": 2,
+      "id": -3,
+      "kind": "input",
+      "bias": 0.0,
+      "response": 1.0,
+      "activation": "identity",
+      "aggregation": "sum"
+    },
+    {
+      "idx": 3,
+      "id": -4,
+      "kind": "input",
+      "bias": 0.0,
+      "response": 1.0,
+      "activation": "identity",
+      "aggregation": "sum"
+    },
+    {
+      "idx": 4,
+      "id": -5,
+      "kind": "input",
+      "bias": 0.0,
+      "response": 1.0,
+      "activation": "identity",
+      "aggregation": "sum"
+    },
+    {
+      "idx": 5,
+      "id": 0,
+      "kind": "output",
+      "bias": -0.24241879428902852,
+      "response": 1.0,
+      "activation": "tanh",
+      "aggregation": "sum"
+    }
+  ],
+  "edges_compact": [
+    {
+      "src_idx": 3,
+      "dst_idx": 5,
+      "weight": 6.44929958394979
+    }
+  ]
+}

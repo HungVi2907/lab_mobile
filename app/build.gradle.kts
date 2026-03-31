@@ -3,6 +3,15 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+fun String.toBuildConfigStringLiteral(): String {
+    val escaped = replace("\\", "\\\\").replace("\"", "\\\"")
+    return "\"$escaped\""
+}
+
+val aiRuntimeArgs: String = (project.findProperty("aiRuntimeArgs") as String?)
+    ?.trim()
+    .orEmpty()
+
 android {
     namespace = "com.example.flappy_bird_clone"
     compileSdk {
@@ -19,6 +28,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "AI_RUNTIME_ARGS", aiRuntimeArgs.toBuildConfigStringLiteral())
     }
 
     buildTypes {
@@ -36,6 +46,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

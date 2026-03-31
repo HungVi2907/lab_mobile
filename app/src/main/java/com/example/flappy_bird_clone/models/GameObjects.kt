@@ -32,13 +32,69 @@ object GameTuning {
     const val PIPE_COUNT: Int = 3
     const val PIPE_SPAWN_OFFSET_RATIO: Float = 0.28f
     const val PIPE_SPACING_JITTER_RATIO: Float = 0.18f
+
+    data class DifficultyProfile(
+        val gravityMultiplier: Float,
+        val flapVelocityMultiplier: Float,
+        val pipeSpeedMultiplier: Float,
+        val pipeGapMultiplier: Float,
+        val pipeSpacingMultiplier: Float,
+    )
+
+    fun profileFor(difficulty: Difficulty): DifficultyProfile {
+        return when (difficulty) {
+            Difficulty.Easy -> DifficultyProfile(
+                gravityMultiplier = 0.9f,
+                flapVelocityMultiplier = 1.06f,
+                pipeSpeedMultiplier = 0.86f,
+                pipeGapMultiplier = 1.2f,
+                pipeSpacingMultiplier = 1.1f,
+            )
+
+            Difficulty.Normal -> DifficultyProfile(
+                gravityMultiplier = 1f,
+                flapVelocityMultiplier = 1f,
+                pipeSpeedMultiplier = 1f,
+                pipeGapMultiplier = 1f,
+                pipeSpacingMultiplier = 1f,
+            )
+
+            Difficulty.Hard -> DifficultyProfile(
+                gravityMultiplier = 1.14f,
+                flapVelocityMultiplier = 0.95f,
+                pipeSpeedMultiplier = 1.18f,
+                pipeGapMultiplier = 0.82f,
+                pipeSpacingMultiplier = 0.9f,
+            )
+        }
+    }
+}
+
+enum class Difficulty {
+    Easy,
+    Normal,
+    Hard,
+}
+
+enum class SoundCue {
+    None,
+    Start,
+    Flap,
+    Score,
+    Hit,
 }
 
 enum class PlayState {
     MainMenu,
     WaitingToStart,
     Playing,
+    Paused,
     GameOver,
+}
+
+enum class ControlMode {
+    Manual,
+    Ai,
 }
 
 data class Bird(
@@ -58,8 +114,18 @@ data class GameState(
     val bird: Bird = Bird(0f, 0f, 0f),
     val pipes: List<Pipe> = emptyList(),
     val score: Int = 0,
+    val highScore: Int = 0,
     val screenWidthPx: Float = 0f,
     val screenHeightPx: Float = 0f,
+    val difficulty: Difficulty = Difficulty.Normal,
+    val isSoundEnabled: Boolean = true,
+    val controlMode: ControlMode = ControlMode.Manual,
+    val isAiAvailable: Boolean = false,
+    val aiFallbackReason: String? = null,
+    val pipeGapHeightPx: Float = 0f,
+    val pipeSpacingPx: Float = 0f,
+    val soundCue: SoundCue = SoundCue.None,
+    val soundCueToken: Int = 0,
 )
 
 data class GamePhysicsConfigPx(
